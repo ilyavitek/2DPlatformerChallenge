@@ -44,7 +44,13 @@ public class GameControl : MonoBehaviour {
 		Time.timeScale = 0f;
 		m_gameOverPanel.SetActive (true);
 
-		PlayerPrefs.SetFloat (StaticManager.HIGHSCORE_KEY, Time.timeSinceLevelLoad);
+
+		if (PlayerPrefs.HasKey (StaticManager.HIGHSCORE_KEY)) {
+			float bestTime = PlayerPrefs.GetFloat (StaticManager.HIGHSCORE_KEY);
+			if (Time.timeSinceLevelLoad > bestTime) {
+				PlayerPrefs.SetFloat (StaticManager.HIGHSCORE_KEY, Time.timeSinceLevelLoad);
+			}
+		}
 	}
 
 	public void RestartScene () {
